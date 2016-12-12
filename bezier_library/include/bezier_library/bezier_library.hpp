@@ -4,7 +4,9 @@
 // Define a base link string for the bezier stack
 #ifndef BEZIER_BASE_LINK
   // The value has to be node like, e.g: "/base_link"
-  #define BEZIER_BASE_LINK "/base_link"
+  // Define it by passing it to the compiler
+  // CMAKE_CXX_FLAGS=-DBEZIER_BASE_LINK="/base_link"
+  #error "BEZIER_BASE_LINK not defined. Please pass it to your compiler as CFLAG."
 #endif
 
 // STL
