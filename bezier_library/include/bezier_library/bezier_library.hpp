@@ -1,6 +1,12 @@
 #ifndef BEZIER_HPP
 #define BEZIER_HPP
 
+// Define a base link string for the bezier stack
+#ifndef BEZIER_BASE_LINK
+  // The value has to be node like, e.g: "/base_link"
+  #define BEZIER_BASE_LINK "/base_link"
+#endif
+
 // STL
 #include <map>
 #include <string>
@@ -206,7 +212,7 @@ protected:
                    const float green,
                    const float blue,
                    const float alpha = 1.0,
-                   std::string frame_id = "/base_link");
+                   std::string frame_id = BEZIER_BASE_LINK);
 
   /**
    * Display a colored trajectory
