@@ -3,9 +3,11 @@
 Bezier::Bezier()
 {
   vtk_observer_ = vtkSmartPointer<ErrorObserver>::New();
-  ROS_INFO_STREAM("Bezier::Bezier: RViz visualization tool is initialized in '" << BEZIER_BASE_LINK << "' "
+  ROS_INFO_STREAM("Bezier::Bezier: RViz visualization tool is initialized in 'base' "
                   "and the topic name is 'rviz_visual_tools'");
-  visual_tools_.reset(new rviz_visual_tools::RvizVisualTools(BEZIER_BASE_LINK));
+  std::string base = BEZIER_BASE_LINK;
+  base.erase(0,1);
+  visual_tools_.reset(new rviz_visual_tools::RvizVisualTools(base));
   setDilationParameters(); // Load default dilation parameters
 }
 
