@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(bezier_library)
 
-# Set the value of BEZIER_BASE_LINK here, so the build order doesn't matter
-add_definitions(-DBEZIER_BASE_LINK="/world")
-
 find_package(catkin REQUIRED COMPONENTS
              roscpp
              rviz_visual_tools)
