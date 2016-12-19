@@ -139,6 +139,16 @@ public:
   void setDilationParameters(const double * sample_dimensions,
                              const double max_distance = 0);
 
+  /**
+   * Apply a lean angle to a pose
+   * @param pose to be modified
+   * @param lean_angle_axis
+   * @param angle_value in radians
+   */
+  void applyLeanAngle(Eigen::Affine3d &pose,
+                      const AXIS_OF_ROTATION lean_angle_axis,
+                      const double angle_value);
+
 protected:
   /**
    * VTK error observer to manage failures when loading files etc.
@@ -280,16 +290,6 @@ protected:
                                        const Eigen::Vector3d &global_mesh_normal,
                                        Eigen::Vector4d &plane_equation_normal,
                                        Eigen::Vector3d &plane_origin);
-
-  /**
-   * Apply a lean angle to a pose
-   * @param pose to be modified
-   * @param lean_angle_axis
-   * @param angle_value in radians
-   */
-  void applyLeanAngle(Eigen::Affine3d &pose,
-                      const AXIS_OF_ROTATION lean_angle_axis,
-                      const double angle_value);
 
   /**
    * Generate robot poses along a line. Uses the stripper normal to generate the Z axis.
