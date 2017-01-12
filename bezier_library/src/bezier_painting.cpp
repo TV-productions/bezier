@@ -111,6 +111,32 @@ std::string BezierPainting::generateTrajectory(EigenSTL::vector_Affine3d &trajec
       it != grinding_strippers.end(); ++it)
   {
     EigenSTL::vector_Affine3d traj;
+
+    // print traj
+    for (EigenSTL::vector_Affine3d::iterator trajIt = traj.begin(); trajIt != traj.end(); ++ trajIt) {
+      ROS_INFO("Current Affine Matrix: [[%3.3f, %3.3f, %3.3f, %3.3f] [%3.3f, %3.3f, %3.3f, %3.3f] [%3.3f, %3.3f, %3.3f, %3.3f] [%3.3f, %3.3f, %3.3f, %3.3f]]",
+      (*trajIt)(0,0),
+      (*trajIt)(0,1),
+      (*trajIt)(0,2),
+      (*trajIt)(0,3),
+
+      (*trajIt)(1,0),
+      (*trajIt)(1,1),
+      (*trajIt)(1,2),
+      (*trajIt)(1,3),
+
+      (*trajIt)(2,0),
+      (*trajIt)(2,1),
+      (*trajIt)(2,2),
+      (*trajIt)(2,3),
+
+      (*trajIt)(3,0),
+      (*trajIt)(3,1),
+      (*trajIt)(3,2),
+      (*trajIt)(3,3)
+    );
+    }
+
     if (!generateRobotPosesAlongStripper(*it, traj))
     {
       ROS_WARN_STREAM("BezierPainting::generateTrajectory: Could not generate robot poses for grinding trajectory");
