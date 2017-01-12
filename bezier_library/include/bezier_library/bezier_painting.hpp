@@ -4,6 +4,7 @@
 #include <bezier_library/bezier_library.hpp>
 #include <ros/package.h>
 #include <memory>
+#include <moveit/robot_state/robot_state.h>
 
 
 /**
@@ -48,6 +49,8 @@ public:
 
   std::string generateTrajectory(EigenSTL::vector_Affine3d &trajectory,
                                  std::vector<bool> &is_grinding_pose,
+                                 robot_state::RobotStatePtr &kinematicState,
+                                 const robot_state::JointModelGroup* joint_model_group,
                                  const bool display_markers = true);
 
   std::string generateTrajectory(EigenSTL::vector_Affine3d &trajectory,
