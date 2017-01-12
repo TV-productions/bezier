@@ -135,6 +135,12 @@ std::string BezierPainting::generateTrajectory(EigenSTL::vector_Affine3d &trajec
       (*trajIt)(3,2),
       (*trajIt)(3,3)
     );
+      /* joint model, end effector state, frames, number of tries, timeout per try */
+      bool found = kinematicState->setFromIK(joint_model_group, *trajIt, 10, 0.05);
+      if (!found) {
+        ROS_ERROR_STREAM("BezierPainting::generateTrajectory: Inverse Kinematics can't find a solution for point");
+      }
+
     }
 
     if (!generateRobotPosesAlongStripper(*it, traj))
@@ -146,13 +152,13 @@ std::string BezierPainting::generateTrajectory(EigenSTL::vector_Affine3d &trajec
     if (harmonizeLineOrientation(traj, direction_reference))
       ROS_INFO_STREAM("BezierPainting::generateTrajectory: Grinding line reversed");
 
-    const EigenSTL::vector_Affine3d &end = traj;
-    const std::vector< std::string > &tips = {"world"};
-    /* joint model, end effector state, frames, number of tries, timeout per try */
+    /*const EigenSTL::vector_Affine3d &end = traj;
+    const std::vector< std::string > &tips = {"/world", "/world", "/world", "/world"};
+    /* joint model, end effector state, frames, number of tries, timeout per try * /
     bool found = kinematicState->setFromIK(joint_model_group, end, tips, 10, 0.05);
     if (!found) {
       ROS_ERROR_STREAM("BezierPainting::generateTrajectory: Inverse Kinematics can't find a solution for point");
-    }
+    }*/
     grinding_trajectories.push_back(traj);
   }
 
