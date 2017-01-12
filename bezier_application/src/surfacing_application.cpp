@@ -99,7 +99,10 @@ int main(int argc,
   EigenSTL::vector_Affine3d way_points_vector;
   std::string error_message;
   std::vector<bool> is_grinding_pose;
-  error_message = bezier_planner->generateTrajectory(way_points_vector, is_grinding_pose);
+  robot_state::RobotStatePtr kinematic_state;
+  const robot_state::JointModelGroup* joint_model_group;
+  error_message = bezier_planner->generateTrajectory(way_points_vector, is_grinding_pose, kinematic_state, joint_model_group);
+
 
   if (!error_message.empty() || way_points_vector.empty())
   {

@@ -52,6 +52,7 @@
 
 // ROS
 #include <rviz_visual_tools/rviz_visual_tools.h>
+#include <moveit/robot_state/robot_state.h>
 
 // Exceptions
 #include "append_bezier_exception.hpp"
@@ -114,6 +115,8 @@ public:
    */
   std::string virtual generateTrajectory(EigenSTL::vector_Affine3d &trajectory,
                                          std::vector<bool> &is_grinding_pose,
+                                         robot_state::RobotStatePtr &kinematicState,
+                                         const robot_state::JointModelGroup* joint_model_group,
                                          bool display_markers) = 0;
 
   /**

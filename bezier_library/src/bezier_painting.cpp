@@ -41,7 +41,7 @@ void BezierPainting::setMeshesPublishers(std::shared_ptr<ros::Publisher> &input_
 std::string BezierPainting::generateTrajectory(EigenSTL::vector_Affine3d &trajectory,
                                                std::vector<bool> &is_grinding_pose,
                                                robot_state::RobotStatePtr &kinematicState,
-                                               const robot_state::JointModelGroup* joint_model_group
+                                               const robot_state::JointModelGroup* joint_model_group,
                                                const bool display_markers)
 {
   visual_tools_->deleteAllMarkers();
@@ -120,8 +120,10 @@ std::string BezierPainting::generateTrajectory(EigenSTL::vector_Affine3d &trajec
     if (harmonizeLineOrientation(traj, direction_reference))
       ROS_INFO_STREAM("BezierPainting::generateTrajectory: Grinding line reversed");
 
-    /* joint model, end effector state, number of tries, timeout per try */
-    bool found = kinematicState->setFromIK(joint_model_group, traj, 10, 0.05);
+    const EigenSTL::vector_Affine3d &end = traj;
+    const std::vector< std::string > &tips = {"world"};
+    /* joint model, end effector state, frames, number of tries, timeout per try */
+    bool found = kinematicState->setFromIK(joint_model_group, end, tips, 10, 0.05);
     if (!found) {
       ROS_ERROR_STREAM("BezierPainting::generateTrajectory: Inverse Kinematics can't find a solution for point");
     }

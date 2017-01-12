@@ -58,6 +58,8 @@ public:
                                  const double painting_cone_width,
                                  const unsigned covering_percentage,
                                  const double extrication_radius,
+                                 robot_state::RobotStatePtr &kinematicState,
+                                 const robot_state::JointModelGroup* joint_model_group,
                                  const double lean_angle = 0.0,
                                  const Bezier::AXIS_OF_ROTATION axis_of_rotation = Bezier::AXIS_OF_ROTATION::Y,
                                  const Eigen::Vector3d &slicing_orientation = Eigen::Vector3d::Zero(),
@@ -69,7 +71,7 @@ public:
     axis_of_rotation_ = axis_of_rotation;
     lean_angle_ = lean_angle;
     setSlicingOrientation(slicing_orientation);
-    return (generateTrajectory(trajectory, is_grinding_pose, display_markers));
+    return (generateTrajectory(trajectory, is_grinding_pose, kinematicState, joint_model_group, display_markers));
   }
 
   /**
